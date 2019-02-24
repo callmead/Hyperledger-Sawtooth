@@ -44,10 +44,8 @@ if [ "$answer" != "${answer#[Yy]}" ] ;then
     echo ' '
     start_poet_engine="poet-engine -v --connect tcp://127.0.0.1:5050 --component tcp://127.0.0.1:4004"
     echo 'PoET Engine: '$start_poet_engine
-    
-    #-----------------------------------------------------------------------
-    # Start all components in one terminal
-    #-----------------------------------------------------------------------
+
+    # Start all components in one terminal under multiple tabs
     gnome-terminal --tab --command="bash -c '$start_validator; $SHELL'" \
                    --tab --command="bash -c '$start_rest_api; $SHELL'" \
                    --tab --command="bash -c '$start_settings_tp; $SHELL'" \
