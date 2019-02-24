@@ -1,7 +1,7 @@
 # Installation Guide
 
 These scripts will install Sawtooth 1.1.4 network with the PoET consensus mode. 
-Detailed instructions can be found on the the [Creating Sawtooth Network](https://sawtooth.hyperledger.org/docs/core/nightly/master/app_developers_guide/creating_sawtooth_network.html?highlight=selecting%20consensus) page
+Detailed instructions can be found on the the [Creating Sawtooth Network](https://sawtooth.hyperledger.org/docs/core/nightly/master/app_developers_guide/creating_sawtooth_network.html?highlight=selecting%20consensus) page.
 
 ### Prerequisites
 
