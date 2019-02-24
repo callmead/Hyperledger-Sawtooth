@@ -60,7 +60,7 @@ if [ "$answer" != "${answer#[Yy]}" ] ;then
     poet registration create -k keys/validator.priv -o poet.batch
 	
     #(Optional) Create a batch to configure optional PoET settings.
-	sawset proposal create -k keys/validator.priv -o poet-settings.batch \
+    sawset proposal create -k keys/validator.priv -o poet-settings.batch \
     sawtooth.poet.target_wait_time=5 \
     sawtooth.poet.initial_wait_time=25 \
     sawtooth.publisher.max_batches_per_block=100
