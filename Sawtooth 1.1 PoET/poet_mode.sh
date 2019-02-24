@@ -1,16 +1,3 @@
-#General updatesecho ''
-echo 'Applying general updates...'
-apt-get -y install cron
-#apt-get -y install openssh-server 
-#apt-get -y install python  
-#apt-get -y install python3 
-#apt install -y python-pip 
-#apt install -y python3-pip 
-#pip install --upgrade pip 
-#pip3 install --upgrade pip 
-apt-get -y install curl 
-apt-get update -y #for sshpass
-apt-get install -y sshpass #for ssh pass
 echo '*************************************************************************'
 echo 'Installing Sawtooth v1.1.4-1 in PoET mode...'
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 8AA7AF1F1091A5FD 
@@ -54,9 +41,8 @@ if [ "$answer" != "${answer#[Yy]}" ] ;then
     sawtooth.poet.report_public_key_pem="$(cat /etc/sawtooth/simulator_rk_pub.pem)" \
     sawtooth.poet.valid_enclave_measurements=$(poet enclave measurement) \
     sawtooth.poet.valid_enclave_basenames=$(poet enclave basename)
-    #Create a batch to register the first validator with the Validator Registry:
-    #poet registration create -k /etc/sawtooth/keys/validator.priv -o poet.batch 
-	
+    
+    #Create a batch to register the first validator with the Validator Registry:	
     poet registration create -k keys/validator.priv -o poet.batch
 	
     #(Optional) Create a batch to configure optional PoET settings.
@@ -115,9 +101,7 @@ if [ "$answer" != "${answer#[Yy]}" ] ;then
     start_poet_engine="poet-engine -v --connect tcp://127.0.0.1:5050 --component tcp://127.0.0.1:4004"
     echo 'PoET Engine: '$start_poet_engine
     
-    #-----------------------------------------------------------------------
-    # Start all components in one terminal
-    #-----------------------------------------------------------------------
+    # Start all components under one terminal multiple tabs...
     gnome-terminal --tab --command="bash -c '$start_validator; $SHELL'" \
                    --tab --command="bash -c '$start_rest_api; $SHELL'" \
                    --tab --command="bash -c '$start_settings_tp; $SHELL'" \
