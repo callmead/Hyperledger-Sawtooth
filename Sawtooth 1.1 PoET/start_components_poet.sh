@@ -13,7 +13,7 @@ if [ "$answer" != "${answer#[Yy]}" ] ;then
     read p_answer
     if [ "$p_answer" != "${p_answer#[Yy]}" ] ;then
         echo 'Static peering selected. Provide peer IPs in the following format'
-        echo 'tcp://10.0.0.20:1003, tcp://10.0.0.21:1003, ...'
+        echo 'tcp://10.0.0.20:8800,tcp://10.0.0.21:8800,...'
         read peer_ips
         #validator
         start_validator="sawtooth-validator -vv --bind component:tcp://127.0.0.1:4004 --bind network:tcp://$IP:8800 --endpoint tcp://$IP:8800 --bind consensus:tcp://127.0.0.1:5050 --peers $peer_ips"
