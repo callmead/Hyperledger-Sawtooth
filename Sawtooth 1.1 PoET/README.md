@@ -44,7 +44,7 @@ Would you like to keep the peering static instead of dynamic? (y/n):
 ```
 The idea of this question is to give the user flexibility of selecting Static or Dynamic peering at will while starting the components.
 
-## Built With
+## Peering modes
 
 * If peering is dynamic, you can enter a partial list of URLs. Sawtooth will automatically discover the other nodes on the network.
 * If peering is static, you must list the URLs of all peers that this node should connect to.
