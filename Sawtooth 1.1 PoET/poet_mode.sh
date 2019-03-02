@@ -5,7 +5,7 @@ add-apt-repository 'deb [arch=amd64] http://repo.sawtooth.me/ubuntu/bumper/stabl
 apt-get update # update repo
 apt-get -y install sawtooth # install sawtooth
 apt-get install -y python3-sawtooth-poet-engine # install poet engine
-apt-get install sawtooth-devmode-engine-rust
+apt-get install sawtooth-devmode-engine-rust # not really required for PoET mode but installing it for testing, if required!
 
 #create folders
 mkdir Sawtooth
