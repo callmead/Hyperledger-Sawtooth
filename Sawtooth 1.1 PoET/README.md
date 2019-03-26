@@ -51,7 +51,7 @@ The idea of this question is to give the user flexibility of selecting Static or
 
 if you select y in the above question, keeping peering static, you must provide the peers like
 ```
-tcp://10.0.0.20:8800,tcp://10.0.0.21:8800,...
+tcp://peer1-ip:port,tcp://peer2-ip:port,...
 ```
 The IP addresses of the peer nodes with the default port numbers 8800 or if you are using any other port, you can use that.
 
@@ -69,4 +69,14 @@ Based on your selected peering mode, validator will start followed by Rest API, 
 * Starting the PoET engine statement is missing "poet-engine -v --connect tcp://127.0.0.1:5050 --component tcp://127.0.0.1:4004"
 
 # Installation Guide v2
-The latest scripts take the user input as a parameter while starting the script execution. The command will be executed as follows.
+The latest scripts take the user input as a parameter while starting the script execution. There are following four parameters to run the script.
+* Parameter 1: deploy_genesis(y/n)
+* Parameter 2: start_components(y/n)
+* Parameter 3: static_peering(y/n)
+* Parameter 4: peers(tcp://ip:port,tcp://ip:port,...)
+
+Example: Assuming that user wants to install the genesis node and start the components with dynamic peering. Since this is the genesis node, the only seed will be the genesis node itself
+```
+sudo ./poet_mode.sh y y n tcp://current-machine-ip:port
+sudo ./poet_mode.sh y y n tcp://127.0.0.1:8800
+```
