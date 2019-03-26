@@ -1,4 +1,4 @@
-# Installation Guide
+# Installation Guide v1
 
 These scripts will install Sawtooth 1.1.4 network with the PoET consensus mode. 
 Detailed instructions can be found on the the [Creating Sawtooth Network](https://sawtooth.hyperledger.org/docs/core/nightly/master/app_developers_guide/creating_sawtooth_network.html?highlight=selecting%20consensus) page.
@@ -67,3 +67,6 @@ Based on your selected peering mode, validator will start followed by Rest API, 
 
 * Starting the validator is missing the consensus bind "--bind consensus:tcp://127.0.0.1:5050"
 * Starting the PoET engine statement is missing "poet-engine -v --connect tcp://127.0.0.1:5050 --component tcp://127.0.0.1:4004"
+
+# Installation Guide v2
+The latest scripts take the user input as a parameter while starting the script execution. The command will be executed as follows.
