@@ -73,7 +73,7 @@ The latest scripts take the user input as a parameter while starting the script 
 * Parameter 1: deploy_genesis(y/n)
 * Parameter 2: start_components(y/n)
 * Parameter 3: static_peering(y/n)
-* Parameter 4: peers(tcp://ip:port,tcp://ip:port,...)
+* Parameter 4: peers or seeds (tcp://node1-ip:port,tcp://node2-ip:port,...)
 
 Example: Assuming that user wants to install the genesis node and start the components with dynamic peering. Since this is the genesis node, the only seed will be the genesis node itself
 ```
