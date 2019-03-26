@@ -1,3 +1,4 @@
+# Script v2
 # Run script: 	./poet_mode2 param1 param2 param3 param4
 # Example: 	./poet_mode2.sh deploy_genesis(y/n) start_components(y/n) static_peering(y/n) peers(tcp://ip:port,tcp://ip:port,...)
 echo '*************************************************************************'
