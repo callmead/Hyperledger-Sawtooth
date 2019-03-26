@@ -1,3 +1,5 @@
+# Run script: 	./poet_mode2 param1 param2 param3 param4
+# Example: 	./poet_mode2.sh deploy_genesis(y/n) start_components(y/n) static_peering(y/n) peers(tcp://ip:port,tcp://ip:port,...)
 echo '*************************************************************************'
 echo 'Installing Sawtooth v1.1.4-1 in PoET mode...'
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 8AA7AF1F1091A5FD 
@@ -5,7 +7,7 @@ add-apt-repository 'deb [arch=amd64] http://repo.sawtooth.me/ubuntu/bumper/stabl
 apt-get update # update repo
 apt-get -y install sawtooth # install sawtooth
 apt-get install -y python3-sawtooth-poet-engine # install poet engine
-apt-get install sawtooth-devmode-engine-rust # not really required for PoET mode but installing it for testing, if required!
+apt-get install sawtooth-devmode-engine-rust
 
 #create folders
 mkdir Sawtooth
@@ -17,10 +19,13 @@ mkdir results
 mkdir policy
 chmod 777 results 
 export SAWTOOTH_HOME=`pwd`
+
 #Generate User Key: 
 sawtooth keygen
+
 #Generate the key for the validator 
 sawadm keygen 
+
 #Ensure user/validator keys exist: 
 ls ~/.sawtooth/keys/ 
 ls /etc/sawtooth/keys/ 
@@ -28,10 +33,8 @@ echo '*************************************************************************'
 dpkg -l '*sawtooth*'
 echo ''
 echo '*************************************************************************'
-echo -n "Ensure keys and packags above before continue. Would you like to create the Genesis block now? (y/n)? "
-read answer
-if [ "$answer" != "${answer#[Yy]}" ] ;then
-    echo 'Preparing -to install...' 
+if [ "$1" != "${1#[Yy]}" ] ;then #$1 first paramemter y/n to install genesis
+    echo 'Preparing to install genesis...' 
     #Create a batch to initialize the Settings transaction family in the genesis block: 
     sawset genesis -k keys/validator.priv -o config-genesis.batch
 	
@@ -55,32 +58,25 @@ if [ "$answer" != "${answer#[Yy]}" ] ;then
     sawadm genesis config-genesis.batch config.batch poet.batch poet-settings.batch 
     echo '*************************************************************************'
     else
-        echo 'Skipping create genesis block...'
+        echo 'Skipping creation of genesis block...'
 fi
 
-echo "Would you like to start the components now? (y/n):"
-read answer
-if [ "$answer" != "${answer#[Yy]}" ] ;then
-    echo 'Preparing to start...'
+if [ "$2" != "${2#[Yy]}" ] ;then #$2 second paramemter y/n to start components
+    echo 'Starting components...'
     #get ip address
     IP=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -n 1)
     echo 'IP Address of current node is:'$IP
-    echo 'Would you like to keep the peering static instead of dynamic? (y/n):'
-    read p_answer
-    if [ "$p_answer" != "${p_answer#[Yy]}" ] ;then
-        echo 'Static peering selected. Provide peer IPs in the following format'
-        echo 'tcp://10.0.0.20:8800,tcp://10.0.0.21:8800,...'
-        read peer_ips
+
+    if [ "$3" != "${3#[Yy]}" ] ;then #$3 peering static y/n and $4 peer IP addresses
+        echo 'Static peering selected.'
         #validator
-        start_validator="sawtooth-validator -vv --bind component:tcp://127.0.0.1:4004 --bind network:tcp://$IP:8800 --endpoint tcp://$IP:8800 --bind consensus:tcp://127.0.0.1:5050 --peers $peer_ips"
+        start_validator="sawtooth-validator -vv --bind component:tcp://127.0.0.1:4004 --bind network:tcp://$IP:8800 --endpoint tcp://$IP:8800 --bind consensus:tcp://127.0.0.1:5050 --peers $4"
         echo 'Validator: '$start_validator
         echo ''
     else
-        echo 'Dynamic peering selected.'
-        echo 'Please provide seed IP:'
-        read seed_ip
+        echo 'Dynamic peering selected.'		
         #validator
-        start_validator="sawtooth-validator -vv --bind component:tcp://127.0.0.1:4004 --bind network:tcp://$IP:8800 --endpoint tcp://$IP:8800 --bind consensus:tcp://127.0.0.1:5050  --peering dynamic --seeds tcp://$seed_ip:8800"
+        start_validator="sawtooth-validator -vv --bind component:tcp://127.0.0.1:4004 --bind network:tcp://$IP:8800 --endpoint tcp://$IP:8800 --bind consensus:tcp://127.0.0.1:5050  --peering dynamic --seeds $4"
         echo 'Validator: '$start_validator
         echo ''
     fi
@@ -110,5 +106,5 @@ if [ "$answer" != "${answer#[Yy]}" ] ;then
                    --tab --command="bash -c '$start_poet_engine; $SHELL'"
     echo '*************************************************************************'
 else
-    echo 'Skipping start components...'
+    echo 'Skipping Start components...'
 fi
