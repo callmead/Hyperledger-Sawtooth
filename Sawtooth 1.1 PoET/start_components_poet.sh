@@ -1,3 +1,4 @@
+# Script v2
 # Run script: 	./start_components param1 param2
 # Example: 	./start_components.sh static_peering(y/n) peers(tcp://ip:port,tcp://ip:port,...)
 echo 'Preparing to start...'
