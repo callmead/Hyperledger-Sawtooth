@@ -82,7 +82,7 @@ if [ "$2" != "${2#[Yy]}" ] ;then #$2 second paramemter y/n to start components
         echo ''
     fi
     # RestAPI
-    start_rest_api="sawtooth-rest-api -v --connect 127.0.0.1:4004" # not binding to any interface because no SW-CLI for now
+    start_rest_api="sawtooth-rest-api -v --connect tcp://127.0.0.1:4004" # not binding to any interface because no SW-CLI for now
     echo 'REST-API: '$start_rest_api
     echo ' '
     #processors
